@@ -1,25 +1,45 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import Navbar from './components/Navbar';
+import CompanyListPage from './components/CompanyListPage';
+import CompanyAppliedListPage from './components/CompanyAppliedListPage';
+import Footer from './components/Footer';
+import Profile from './components/Profile';
 
-function App() {
+// Define routes
+const router = createBrowserRouter([
+  {path:'/',
+    element:<Navbar/>,
+    children:[
+      {
+        path: '/',
+        element: <Profile/>,
+      },
+      {
+        path: '/company-list',
+        element: <CompanyListPage />,
+      },
+      {
+        path: '/applied-list',
+        element: <CompanyAppliedListPage />,
+      },
+
+    ]
+
+  },
+  
+]);
+
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="flex flex-col min-h-screen">
+      {/* <Navbar /> */}
+      <main className="flex-grow">
+        <RouterProvider router={router} />
+      </main>
+      <Footer />
     </div>
   );
-}
+};
 
 export default App;
